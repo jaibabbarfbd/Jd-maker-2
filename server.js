@@ -2,13 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
-
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Middleware ──────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
+app.use(cors({
+  origin: 'https://leafy-nougat-054071.netlify.app', // exact Netlify URL, no trailing slash
+  methods: ['GET', 'POST'],
+}));
 
 // Rate limit: 100 requests per hour per IP
 const limiter = rateLimit({
